@@ -1,11 +1,4 @@
-﻿using Microsoft.VisualBasic;
-using System.Buffers.Text;
-using System.ComponentModel;
-using System.Data.SqlTypes;
-using System;
-using System.Diagnostics;
-using System.Drawing;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 
 namespace Utilities.ExtensionMethods
 {
