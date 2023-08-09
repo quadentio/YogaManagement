@@ -2,7 +2,7 @@
 
 namespace Data.Models
 {
-    public class Client
+    public class Client : BaseEntity
     {
         [Key]
         public string PhoneNumber { get; set; }
@@ -10,8 +10,5 @@ namespace Data.Models
         public string? Email { get; set; }
         public string? Condition { get; set; }
         public string? Note { get; set; }
-        public DateTime CreatedDate { get; set; }
-        public DateTime UpdatedDate { get; set; }
-        public DateTime DeletedDate { get; set; }
     }
 }

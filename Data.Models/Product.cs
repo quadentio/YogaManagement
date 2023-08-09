@@ -2,7 +2,7 @@
 
 namespace Data.Models
 {
-    public class Product
+    public class Product : BaseEntity
     {
         [Key]
         public Guid ProductId { get; set; }
@@ -11,8 +11,5 @@ namespace Data.Models
         public DateTime EndDate { get; set; }
         public float Discount { get; set; }
         public float UnitPrice { get; set; }
-        public DateTime CreatedDate { get; set; }
-        public DateTime UpdatedDate { get; set; }
-        public DateTime DeletedDate { get; set; }
     }
 }

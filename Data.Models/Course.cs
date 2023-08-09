@@ -2,7 +2,7 @@
 
 namespace Data.Models
 {
-    public class Course
+    public class Course : BaseEntity, ISoftDeleteEntity
     {
         [Key]
         public Guid CourseId { get; set; }
@@ -10,9 +10,7 @@ namespace Data.Models
         public DateTime EndDate { get; set; }
         public int CoursePrice { get; set; }
         public Guid ClassId { get; set; }
-        public DateTime CreatedDate { get; set; }
-        public DateTime UpdatedDate { get; set; }
-        public DateTime DeletedDate { get; set; }
+        public DateTime? DeletedAt { get; set; }
 
         // Navigation Properties
         public Class Class { get; set; }

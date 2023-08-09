@@ -1,4 +1,7 @@
 ﻿using Data.Access.Data;
+using Data.Models;
+using Data.Models.Validator;
+using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using YogaManagement.Infrastructure.Settings;
 
@@ -22,6 +25,7 @@ namespace YogaManagement.Infrastructure
             // Authentication service
 
             // Auto Mapper services
+            services.AddAutoMapper(typeof(Program).Assembly);
 
             // ==== ADD SCOPE EF AND Repository ===========================
             // Config database setting
@@ -35,6 +39,16 @@ namespace YogaManagement.Infrastructure
             // Add all services instance
 
             // Add FluentValidation
+            services.ConfigureValidatorServices();
+        }
+
+        public static void ConfigureValidatorServices(this IServiceCollection services)
+        {
+            services.AddScoped<IValidator<Class>, ClassValidator>();
+            services.AddScoped<IValidator<Product>, ProductValidator>();
+            services.AddScoped<IValidator<Client>, ClientValidator>();
+            services.AddScoped<IValidator<Course>, CourseValidator>();
+            services.AddScoped<IValidator<Shift>, ShiftValidator>();
         }
     }
 }
