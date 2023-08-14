@@ -1,9 +1,11 @@
 ﻿using Data.Access.Data;
+using Data.Access.Repositories;
 using Data.Models;
-using Data.Models.Validator;
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
+using YogaManagement.Attributes;
 using YogaManagement.Infrastructure.Settings;
+using YogaManagement.Validator;
 
 namespace YogaManagement.Infrastructure
 {
@@ -14,15 +16,22 @@ namespace YogaManagement.Infrastructure
             // Load Database Setting
             var dbSetting = new DataBaseSetting();
             configuration.GetSection(typeof(DataBaseSetting).Name).Bind(dbSetting, options => options.BindNonPublicProperties = true);
+
             services.AddSingleton(dbSetting);
 
             // Add Http Context Accessor
             services.AddHttpContextAccessor();
 
             // Add Controller With Views
-            services.AddControllersWithViews();
+            services.AddControllersWithViews(options =>
+            {
+                options.Filters.Add(typeof(LoggingFilterService));
+            });
 
             // Authentication service
+
+            // Attributes services
+            services.ConfigureAttributeServices();
 
             // Auto Mapper services
             services.AddAutoMapper(typeof(Program).Assembly);
@@ -35,6 +44,7 @@ namespace YogaManagement.Infrastructure
             });
 
             // DI (CRUD)
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             // Add all services instance
 
@@ -49,6 +59,12 @@ namespace YogaManagement.Infrastructure
             services.AddScoped<IValidator<Client>, ClientValidator>();
             services.AddScoped<IValidator<Course>, CourseValidator>();
             services.AddScoped<IValidator<Shift>, ShiftValidator>();
+            services.AddScoped<IValidator<User>, UserValidator>();
+        }
+
+        public static void ConfigureAttributeServices(this IServiceCollection services)
+        {
+            services.AddScoped<LoggingFilterService>();
         }
     }
 }

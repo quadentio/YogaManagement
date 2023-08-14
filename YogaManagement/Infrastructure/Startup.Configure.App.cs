@@ -1,4 +1,6 @@
-﻿namespace YogaManagement.Infrastructure
+﻿using Serilog;
+
+namespace YogaManagement.Infrastructure
 {
     public static partial class Startup
     {
@@ -12,13 +14,14 @@
                 app.UseHsts();
             }
 
+            app.UseSerilogRequestLogging();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
 
-            // Add authen middleware
+            // Route config
             app.UseEndpoints(route =>
             {
                 RouteConfig.RegisterRoutes(route);

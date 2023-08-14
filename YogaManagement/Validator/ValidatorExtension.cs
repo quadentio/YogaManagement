@@ -1,7 +1,7 @@
 ﻿using FluentValidation.Results;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 
-namespace BulkyBook.Models.Validation
+namespace YogaManagement.Validator
 {
     public static class ValidationResultExtension
     {

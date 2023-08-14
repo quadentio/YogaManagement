@@ -1,13 +1,16 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Data.Models;
+using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
-using YogaManagement.Models;
+using YogaManagement.Attributes;
 
 namespace YogaManagement.Controllers
 {
+    [ServiceFilter(typeof(LoggingFilterService))]
     public class HomeController : BaseController
     {
         private readonly ILogger<HomeController> _logger;
 
+        
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;

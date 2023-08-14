@@ -11,6 +11,30 @@ namespace YogaManagement.Infrastructure
                 pattern: "/",
                 defaults: new { controller = "Home", action = "Index" }
             );
+
+            route.MapControllerRoute(
+                name: "Home",
+                pattern: "/Privacy",
+                defaults: new { controller = "Home", action = "Privacy" }
+            );
+
+            route.MapControllerRoute(
+                name: "Auth",
+                pattern: "/Auth",
+                defaults: new { controller = "Auth", action = "Index" }
+            );
+
+            route.MapControllerRoute(
+                name: "Auth",
+                pattern: "/Auth/login",
+                defaults: new { controller = "Auth", action = "Login" }
+            );
+
+            route.MapControllerRoute(
+                name: "Auth",
+                pattern: "/Auth/logout",
+                defaults: new { controller = "Auth", action = "Logout" }
+            );
         }
     }
 }

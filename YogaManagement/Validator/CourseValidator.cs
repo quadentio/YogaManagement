@@ -1,11 +1,7 @@
-﻿using FluentValidation;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Data.Models;
+using FluentValidation;
 
-namespace Data.Models.Validator
+namespace YogaManagement.Validator
 {
     public class CourseValidator : AbstractValidator<Course>
     {

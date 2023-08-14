@@ -46,3 +46,14 @@ button.accept-policy {
   white-space: nowrap;
   line-height: 60px;
 }
+
+.main-layout-background {
+  background-color: #73a580;
+}
+
+
+/*Custom*/
+#menu li a:hover,
+#login li a:hover {
+    background-color: #1a78c2;
+}

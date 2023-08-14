@@ -1,6 +1,5 @@
 ﻿using Data.Access.Data;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Identity.Client;
+using Microsoft.EntityFrameworkCore.Storage;
 
 namespace Data.Access.Repositories
 {
@@ -12,6 +11,8 @@ namespace Data.Access.Repositories
         IClientRepository ClientRepository { get; }
         IShiftRepository ShiftRepository { get; }
 
+        void BeginTransaction();
+        void Commit();
         void Save();
         void ExecuteQuery(string query);
     }
@@ -20,6 +21,7 @@ namespace Data.Access.Repositories
     {
         #region DBContext
         private readonly YogaManagementDbContext _dbContext;
+        private IDbContextTransaction _transaction;
         #endregion
 
         #region Repositories
@@ -34,6 +36,19 @@ namespace Data.Access.Repositories
         {
             _dbContext = dbContext;
         }
+
+        #region Transaction
+        public void BeginTransaction()
+        {
+            _transaction = _dbContext.Database.BeginTransaction();
+        }
+
+        public void Commit()
+        {
+            _transaction.Commit();
+        }
+        #endregion
+
         public IClassRepository ClassRepository
         {
             get

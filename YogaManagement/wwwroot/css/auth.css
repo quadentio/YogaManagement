@@ -1,0 +1,12 @@
+/* Index Screen */
+.glass-container {
+    background: rgba(255, 255, 255, 0.15); /* Background color with opacity */
+    backdrop-filter: blur(10px); /* Apply blur effect */
+    border-radius: 15px; /* Rounded corners */
+    padding: 20px;
+}
+
+.main-background {
+    background-image: url('../img/yoga_wall.jpg');
+    background-repeat: no-repeat;
+}
