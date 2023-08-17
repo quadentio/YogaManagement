@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="~/css/auth.css" asp-append-version="true" />
 }
 
-@model User
+@model LoginViewModel
 
 <section class="vh-100 rounded-3 main-background">
     <div class="container py-5 h-100">
@@ -29,12 +29,20 @@
 
                                     <div class="form-outline mb-3">
                                         <span asp-validation-for="UserName" class="text-danger"></span>
-                                        <input type="text" asp-for="UserName" class="form-control form-control-lg" placeholder="username" />
+                                        <input type="text" asp-for="UserName" class="form-control form-control-lg" placeholder="username"/>
                                     </div>
 
                                     <div class="form-outline mb-3">
                                         <span asp-validation-for="Password" class="text-danger"></span>
-                                        <input type="password" asp-for="Password" class="form-control form-control-lg" placeholder="password" />
+                                        <input type="password" asp-for="Password" class="form-control form-control-lg" placeholder="password"/>
+                                    </div>
+
+                                    <div class="form-outline mb-3">
+                                        
+                                        <label class="form-check-label ms-2">
+                                            <input asp-for="RememberMe" class="form-check-input form-check-input-md" type="checkbox" />
+                                            <span class="ms-1">Remember me</span>
+                                        </label>
                                     </div>
 
                                     <div class="pt-1 mb-4">
@@ -56,3 +64,7 @@
         </div>
     </div>
 </section>
+
+@section Scripts{
+    <script src="./js/Auth.js"></script>
+}

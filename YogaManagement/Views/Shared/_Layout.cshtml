@@ -3,8 +3,7 @@
     var controller = ViewContext.ActionDescriptor.RouteValues["controller"];
     var indexHomeUrl = Url.Action("Index", "Home");
     var privacyHomeUrl = Url.Action("Privacy", "Home");
-    var indexAuthUrl = Url.Action("Index", "Auth");
-    var logoutAuthUrl = Url.Action("Logout", "Auth");
+    var indexClassUrl = Url.Action("Index", "Class");
 }﻿
 <!DOCTYPE html>
 <html lang="en">
@@ -14,6 +13,7 @@
     <title>@ViewData["Title"] - YogaManagement</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/layout.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/YogaManagement.styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     @await RenderSectionAsync("RenderBodyStyles", required: false)
@@ -25,7 +25,7 @@
                 <div>
                     <a href="@indexHomeUrl" class="text-white text-decoration-none d-flex align-items-center ms-4 mt-2" role="button">
                         <i class="bi bi-menu-up"></i>
-                        <span class="fs-5 ms-2">YogaMenu</span>
+                        <span class="fs-5 ms-2">Yoga</span>
                     </a>
                     <hr class="text-white">
                     <div class="flex-column justify-content-between">
@@ -44,31 +44,13 @@
                                     <span class="ms-2">Privacy</span>
                                 </a>
                             </li>
-                            <li class="nav-item mb-2">
-                                <a href="#YogaManagemet" class="nav-link text-white">
-                                    <i class="bi bi-lungs-fill"></i>
-                                    <span class="ms-2">YogaManagement</span>
-                                </a>
-                            </li>
+                            <partial name="_LoginFuncPartial" />
                         </ul>
 
                         <hr class="text-white">
 
                         @*Login Section*@
-                        <ul class="nav nav-pills flex-column mt-2 mt-sm-0" id="login">
-                            <li class="nav-item mb-2">
-                                <a href="@indexAuthUrl" class="@(action == "Index" && controller == "Auth" ? "active" : "") nav-link text-white">
-                                    <i class="bi bi-box-arrow-in-right"></i>
-                                    <span class="ms-2">Login</span>
-                                </a>
-                            </li>
-                            <li class="nav-item mb-2">
-                                <a href="@logoutAuthUrl" class="@(action == "Logout" && controller == "Auth" ? "active" : "") nav-link text-white">
-                                    <i class="bi bi-box-arrow-in-left"></i>
-                                    <span class="ms-2">Logout</span>
-                                </a>
-                            </li>
-                        </ul>
+                        <partial name="_LoginStatusPartial" />
                     </div>
                 </div>
 
@@ -98,6 +80,7 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/Logout.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

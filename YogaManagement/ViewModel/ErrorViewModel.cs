@@ -1,4 +1,4 @@
-namespace Data.Models
+namespace YogaManagement.ViewModel
 {
     public class ErrorViewModel
     {

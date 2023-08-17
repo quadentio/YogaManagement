@@ -1,11 +1,12 @@
 ﻿using Data.Models;
 using FluentValidation;
+using YogaManagement.ViewModel.Auth;
 
 namespace YogaManagement.Validator
 {
-    public class UserValidator : AbstractValidator<User>
+    public class LoginValidator : AbstractValidator<LoginViewModel>
     {
-        public UserValidator()
+        public LoginValidator()
         {
             RuleFor(x => x.UserName).NotEmpty().WithMessage("Username must not be empty");
             RuleFor(x => x.Password)

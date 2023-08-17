@@ -1,0 +1,38 @@
+﻿@{
+    var action = ViewContext.ActionDescriptor.RouteValues["action"];
+    var controller = ViewContext.ActionDescriptor.RouteValues["controller"];
+    var indexAuthUrl = Url.Action("Index", "Auth");
+    var logoutAuthUrl = Url.Action("Logout", "Auth");
+    var isAdmin = User.IsInRole("admin");
+}
+
+@if(!User.Identity.IsAuthenticated)
+{
+    <ul class="nav nav-pills flex-column mt-2 mt-sm-0" id="login">
+        <li class="nav-item mb-2">
+            <a href="@indexAuthUrl" class="@(action == "Index" && controller == "Auth" ? "active" : "") nav-link text-white">
+                <i class="bi bi-box-arrow-in-right"></i>
+                <span class="ms-2">Login</span>
+            </a>
+        </li>
+    </ul>
+}
+else
+{
+    <ul class="nav nav-pills flex-column mt-2 mt-sm-0" id="login">
+        <li class="nav-item mb-2">
+            <div class="text-white">
+                <i class="bi bi-person-check"></i>
+                <span class="ms-2 fw-bold">@User.Identity.Name</span>
+            </div>
+        </li>
+        <li class="nav-item mb-2">
+            <a href="#" id="btnLogout" class="nav-link text-white">
+                <i class="bi bi-box-arrow-in-left"></i>
+                <span class="ms-2">Logout</span>
+                <form method="post" id="logoutForm" action="@logoutAuthUrl">
+                </form>
+            </a>
+        </li>    
+    </ul>
+}

@@ -1,0 +1,25 @@
+﻿@{
+    var action = ViewContext.ActionDescriptor.RouteValues["action"];
+    var controller = ViewContext.ActionDescriptor.RouteValues["controller"];
+    var indexClassUrl = Url.Action("Index", "Class");
+    var isAdmin = User.IsInRole("admin");
+}
+
+@if(User.Identity.IsAuthenticated)
+{
+    <li class="nav-item mb-2">
+        <a href="#YogaManagemet" class="@(action == "Index" && controller == "YogaManagement" ? "active" : "") nav-link text-white">
+            <i class="bi bi-lungs-fill"></i>
+            <span class="ms-2">YogaManagement</span>
+        </a>
+    </li>
+    if (isAdmin)
+    {
+        <li class="nav-item mb-2">
+            <a href="@indexClassUrl" class="@(action == "Index" && controller == "Class" ? "active" : "") nav-link text-white">
+                <i class="bi bi-lungs-fill"></i>
+                <span class="ms-2">Class</span>
+            </a>
+        </li>
+    }
+}

@@ -1,0 +1,45 @@
+﻿@section RenderBodyStyles{
+    <link rel="stylesheet" href="~/css/auth.css" asp-append-version="true" />
+}
+
+@model RegisterUserViewModel
+<section class="vh-100 rounded-3 main-background">
+    <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col col-xl-6 col-lg-4 col-md-3">
+                <div class="card glass-container" style="border-radius: 1rem;">
+                    <div class="row g-0 justify-content-center">
+                        <div class="col-md-6 col-lg-8 d-flex align-items-center">
+                            <div class="card-body p-4 p-lg-5 text-black">
+
+                                <form method="post" action="">
+
+                                    <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Register account</h5>
+
+                                    <div class="form-outline mb-3">
+                                        <span asp-validation-for="UserName" class="text-danger"></span>
+                                        <input type="text" asp-for="UserName" class="form-control form-control-lg" placeholder="username" />
+                                    </div>
+
+                                    <div class="form-outline mb-3">
+                                        <span asp-validation-for="Password" class="text-danger"></span>
+                                        <input type="password" asp-for="Password" class="form-control form-control-lg" placeholder="password" />
+                                    </div>
+
+                                    <div class="form-outline mb-3">
+                                        <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                                        <input type="password" asp-for="ConfirmPassword" class="form-control form-control-lg" placeholder="ConfirmPassword" />
+                                    </div>
+
+                                    <div class="pt-1 mb-4">
+                                        <button class="btn btn-warning btn-lg btn-block" type="submit">Register</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,11 +1,13 @@
 ﻿using Data.Access.Data;
 using Data.Access.Repositories;
-using Data.Models;
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 using YogaManagement.Attributes;
+using YogaManagement.Common;
 using YogaManagement.Infrastructure.Settings;
 using YogaManagement.Validator;
+using YogaManagement.ViewModel.Auth;
 
 namespace YogaManagement.Infrastructure
 {
@@ -16,6 +18,10 @@ namespace YogaManagement.Infrastructure
             // Load Database Setting
             var dbSetting = new DataBaseSetting();
             configuration.GetSection(typeof(DataBaseSetting).Name).Bind(dbSetting, options => options.BindNonPublicProperties = true);
+
+            // Load Web Setting
+            var webSetting = new WebSetting();
+            configuration.GetSection(typeof(WebSetting).Name).Bind(webSetting, options => options.BindNonPublicProperties = true);
 
             services.AddSingleton(dbSetting);
 
@@ -29,6 +35,31 @@ namespace YogaManagement.Infrastructure
             });
 
             // Authentication service
+            // Cookie scheme
+            var authBuilder = services.AddAuthentication(options =>
+            {
+                options.DefaultScheme = webSetting.CookieAuthScheme;
+            });
+
+            authBuilder.AddCookie(webSetting.CookieAuth, options =>
+            {
+                options.Cookie = new CookieBuilder() { 
+                    Name = webSetting.CookieAuth
+                };
+                options.ExpireTimeSpan = TimeSpan.FromMinutes(webSetting.ExpiredTimeMinutes);
+                options.Cookie.HttpOnly = true;
+                options.Cookie.SecurePolicy = CookieSecurePolicy.SameAsRequest;
+                options.LoginPath = webSetting.LoginPath;
+                options.LogoutPath = webSetting.LogoutPath;
+                options.AccessDeniedPath = webSetting.DeniedPath;
+                options.ReturnUrlParameter = "returnUrl";
+            });
+
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy(Const.ADMIN_POLICY, 
+                    policy => policy.RequireClaim(ClaimTypes.Role, "admin"));
+            });
 
             // Attributes services
             services.ConfigureAttributeServices();
@@ -37,7 +68,7 @@ namespace YogaManagement.Infrastructure
             services.AddAutoMapper(typeof(Program).Assembly);
 
             // ==== ADD SCOPE EF AND Repository ===========================
-            // Config database setting
+            // Config databases setting
             services.AddDbContext<YogaManagementDbContext>(options =>
             {
                 options.UseSqlServer(dbSetting.ConnectionString);
@@ -54,12 +85,12 @@ namespace YogaManagement.Infrastructure
 
         public static void ConfigureValidatorServices(this IServiceCollection services)
         {
-            services.AddScoped<IValidator<Class>, ClassValidator>();
-            services.AddScoped<IValidator<Product>, ProductValidator>();
-            services.AddScoped<IValidator<Client>, ClientValidator>();
-            services.AddScoped<IValidator<Course>, CourseValidator>();
-            services.AddScoped<IValidator<Shift>, ShiftValidator>();
-            services.AddScoped<IValidator<User>, UserValidator>();
+            //services.AddScoped<IValidator<Class>, ClassValidator>();
+            //services.AddScoped<IValidator<Product>, ProductValidator>();
+            //services.AddScoped<IValidator<Client>, ClientValidator>();
+            //services.AddScoped<IValidator<Course>, CourseValidator>();
+            //services.AddScoped<IValidator<Shift>, ShiftValidator>();
+            services.AddScoped<IValidator<LoginViewModel>, LoginValidator>();
         }
 
         public static void ConfigureAttributeServices(this IServiceCollection services)

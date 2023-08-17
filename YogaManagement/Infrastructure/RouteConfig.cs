@@ -1,6 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
-
-namespace YogaManagement.Infrastructure
+﻿namespace YogaManagement.Infrastructure
 {
     public static class RouteConfig
     {
@@ -19,6 +17,12 @@ namespace YogaManagement.Infrastructure
             );
 
             route.MapControllerRoute(
+                name: "Home",
+                pattern: "/Error",
+                defaults: new { controller = "Home", action = "Error" }
+            );
+
+            route.MapControllerRoute(
                 name: "Auth",
                 pattern: "/Auth",
                 defaults: new { controller = "Auth", action = "Index" }
@@ -26,14 +30,20 @@ namespace YogaManagement.Infrastructure
 
             route.MapControllerRoute(
                 name: "Auth",
-                pattern: "/Auth/login",
-                defaults: new { controller = "Auth", action = "Login" }
+                pattern: "/Auth/logout",
+                defaults: new { controller = "Auth", action = "Logout" }
             );
 
             route.MapControllerRoute(
                 name: "Auth",
-                pattern: "/Auth/logout",
-                defaults: new { controller = "Auth", action = "Logout" }
+                pattern: "/Auth/Register",
+                defaults: new { controller = "Auth", action = "Register" }
+            );
+
+            route.MapControllerRoute(
+                name: "Class",
+                pattern: "/Class",
+                defaults: new { controller = "Class", action = "Index"}
             );
         }
     }
