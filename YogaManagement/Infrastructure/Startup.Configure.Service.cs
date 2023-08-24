@@ -6,6 +6,7 @@ using System.Security.Claims;
 using YogaManagement.Attributes;
 using YogaManagement.Common;
 using YogaManagement.Infrastructure.Settings;
+using YogaManagement.Services;
 using YogaManagement.Validator;
 using YogaManagement.ViewModel.Auth;
 
@@ -78,6 +79,7 @@ namespace YogaManagement.Infrastructure
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             // Add all services instance
+            services.AddScoped<IAuthService, AuthService>();
 
             // Add FluentValidation
             services.ConfigureValidatorServices();
@@ -91,6 +93,7 @@ namespace YogaManagement.Infrastructure
             //services.AddScoped<IValidator<Course>, CourseValidator>();
             //services.AddScoped<IValidator<Shift>, ShiftValidator>();
             services.AddScoped<IValidator<LoginViewModel>, LoginValidator>();
+            services.AddScoped<IValidator<RegisterViewModel>, RegisterValidator>();
         }
 
         public static void ConfigureAttributeServices(this IServiceCollection services)

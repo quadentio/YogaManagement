@@ -2,8 +2,7 @@ namespace YogaManagement.ViewModel
 {
     public class ErrorViewModel
     {
-        public string? RequestId { get; set; }
-
-        public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
+        public string? Key { get; set; }
+        public List<string>? Messages { get; set; }
     }
 }

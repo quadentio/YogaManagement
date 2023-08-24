@@ -31,7 +31,7 @@ namespace YogaManagement.Controllers
         [AllowAnonymous]
         public IActionResult Error()
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return View(new ErrorViewModel { Key = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
 }

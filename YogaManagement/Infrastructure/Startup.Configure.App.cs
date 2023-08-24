@@ -20,6 +20,7 @@ namespace YogaManagement.Infrastructure
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
+            //app.UseSession();
 
             // Route config
             app.UseEndpoints(route =>

@@ -26,7 +26,7 @@
                                 <form method="post" action="@loginAuthUrl">
 
                                     <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Sign into your account</h5>
-
+                                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                                     <div class="form-outline mb-3">
                                         <span asp-validation-for="UserName" class="text-danger"></span>
                                         <input type="text" asp-for="UserName" class="form-control form-control-lg" placeholder="username"/>

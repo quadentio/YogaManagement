@@ -11,6 +11,8 @@ namespace Data.Access.Repositories
         IClientRepository ClientRepository { get; }
         IShiftRepository ShiftRepository { get; }
 
+        IUserRepository UserRepository { get; }
+
         void BeginTransaction();
         void Commit();
         void Save();
@@ -30,6 +32,7 @@ namespace Data.Access.Repositories
         private ICourseRepository _courseRepository;
         private IClientRepository _clientRepository;
         private IShiftRepository _shiftRepository;
+        private IUserRepository _userRepository;
         #endregion
 
         public UnitOfWork(YogaManagementDbContext dbContext)
@@ -106,6 +109,18 @@ namespace Data.Access.Repositories
                     _shiftRepository = new ShiftRepository(_dbContext);
                 }
                 return _shiftRepository;
+            }
+        }
+
+        public IUserRepository UserRepository
+        {
+            get
+            {
+                if (_userRepository == null)
+                {
+                    _userRepository = new UserRepository(_dbContext);
+                }
+                return _userRepository;
             }
         }
 

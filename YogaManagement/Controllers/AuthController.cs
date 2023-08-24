@@ -1,10 +1,13 @@
 ﻿using FluentValidation;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using YogaManagement.Attributes;
 using YogaManagement.Common;
+using YogaManagement.Services;
 using YogaManagement.Validator;
+using YogaManagement.ViewModel;
 using YogaManagement.ViewModel.Auth;
 
 namespace YogaManagement.Controllers
@@ -13,9 +16,13 @@ namespace YogaManagement.Controllers
     public class AuthController : BaseController
     {
         private readonly IValidator<LoginViewModel> _loginValidator;
-        public AuthController(IValidator<LoginViewModel> loginValidator)
+        private readonly IValidator<RegisterViewModel> _registerValidator;
+        private readonly IAuthService _authService;
+        public AuthController(IValidator<LoginViewModel> loginValidator, IValidator<RegisterViewModel> registerValidator, IAuthService authService)
         {
             _loginValidator = loginValidator;
+            _registerValidator = registerValidator;
+            _authService = authService;
         }
 
         [HttpGet]
@@ -27,53 +34,40 @@ namespace YogaManagement.Controllers
         [HttpPost]
         public async Task<IActionResult> Index(LoginViewModel login)
         {
-            var validateResult = _loginValidator.Validate(login);
-            if (!validateResult.IsValid)
+            // 1. Validate user login information
+            // 2. Verify user login information
+            // 3. Create security context (cookie authentication)
+            // 4. Signin with security context
+
+            // Input Validation
+            var result = _loginValidator.Validate(login);
+            if (result != null && !result.IsValid)
             {
-                validateResult.AddToModelState(ModelState);
+                result.AddToModelState(ModelState);
+                login.Errors = new List<ErrorViewModel>();
+                result.AddToErrorViewModel(login);
                 return View(login);
             }
 
-            // Verify the credential
-            if (login.UserName == "admin" && login.Password == "Admin@123")
+            // Verify user and create identity (BL Validation)
+            var verifiedUser = _authService.VerifyUserLoginInformation(login);
+            if (verifiedUser == null)
             {
-                // Create security context
-                var claims = new List<Claim> { 
-                    new Claim(ClaimTypes.Name, login.UserName),
-                    new Claim(ClaimTypes.Email, "admin@mywebsite.com"),
-                    new Claim(ClaimTypes.Role, "admin")
-                };
-
-                var identity = new ClaimsIdentity(claims, Const.COOKIE_SCHEME);
-                ClaimsPrincipal claimsPrincipal = new ClaimsPrincipal(identity);
-
-                var authProperties = new AuthenticationProperties
-                {
-                    IsPersistent = login.RememberMe
-                };
-
-                // Inject security context
-                await HttpContext.SignInAsync(Const.COOKIE_SCHEME, claimsPrincipal, authProperties);
+                ModelState.AddModelError("", "Username or Password is incorrect");
+                //ModelState.GetErrorMessages(login);
+                return View(login);
             }
-            else if (login.UserName == "user" && login.Password == "User@123")
+
+            // Create security context
+            var identity = _authService.CreateSecurityContext(verifiedUser);
+            ClaimsPrincipal claimsPrincipal = new ClaimsPrincipal(identity);
+            var authProperties = new AuthenticationProperties
             {
-                // Create security context
-                var claims = new List<Claim> {
-                    new Claim(ClaimTypes.Name, login.UserName),
-                    new Claim(ClaimTypes.Email, "admin@mywebsite.com"),
-                };
+                IsPersistent = login.RememberMe
+            };
 
-                var identity = new ClaimsIdentity(claims, Const.COOKIE_SCHEME);
-                ClaimsPrincipal claimsPrincipal = new ClaimsPrincipal(identity);
-
-                var authProperties = new AuthenticationProperties
-                {
-                    IsPersistent = login.RememberMe
-                };
-
-                // Inject security context
-                await HttpContext.SignInAsync(Const.COOKIE_SCHEME, claimsPrincipal, authProperties);
-            }
+            // Inject security context
+            await HttpContext.SignInAsync(Const.COOKIE_SCHEME, claimsPrincipal, authProperties);
 
             return RedirectToAction("Index", "Home");
         }
@@ -81,8 +75,42 @@ namespace YogaManagement.Controllers
         [HttpGet]
         public IActionResult Register()
         {
-            return View(new RegisterUserViewModel());
+            return View(new RegisterViewModel());
         }
+
+        [HttpPost]
+        public IActionResult Register(RegisterViewModel register)
+        {
+            // Validate register information
+            var result = _registerValidator.Validate(register);
+            if (result != null && !result.IsValid)
+            {
+                result.AddToModelState(ModelState);
+                return View(register);
+            }
+            if (!_authService.CheckDuplicateUserInformation(register))
+            {
+                ModelState.AddModelError(nameof(register.UserName), "Username is registered, please choose other username");
+                return View(register);
+            }
+
+            // Register information
+            if (!_authService.RegisterUserInformation(register))
+            {
+                ModelState.AddModelError("", "Register user information fail, please try again later!!");
+                return View(register);
+            }
+
+            // Save session information
+
+            return RedirectToAction("RegisterSuccess");
+        }
+
+        //[HttpGet]
+        //public IActionResult RegisterSuccess()
+        //{
+        //    // Check session information before loading page
+        //}
 
         [HttpPost]
         public async Task<IActionResult> Logout()

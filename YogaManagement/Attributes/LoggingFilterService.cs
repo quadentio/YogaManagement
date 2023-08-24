@@ -13,7 +13,7 @@ namespace YogaManagement.Attributes
         public void OnActionExecuting(ActionExecutingContext context)
         {
             _logger.LogInformation(
-                "Exec{@ControllerName}Controller-{@ActionName}Action, @{DateTimeUTC}",
+                "Exec: {@ControllerName}Controller-{@ActionName}Action, @{DateTimeUTC}",
                 context.ActionDescriptor.RouteValues["controller"],
                 context.ActionDescriptor.RouteValues["action"],
                 DateTime.UtcNow
