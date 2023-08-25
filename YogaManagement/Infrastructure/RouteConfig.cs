@@ -41,6 +41,12 @@
             );
 
             route.MapControllerRoute(
+                name: "Auth",
+                pattern: "/Auth/RegisterEnd",
+                defaults: new { controller = "Auth", action = "RegisterEnd" }
+            );
+
+            route.MapControllerRoute(
                 name: "Class",
                 pattern: "/Class",
                 defaults: new { controller = "Class", action = "Index"}

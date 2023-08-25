@@ -2,6 +2,7 @@
 using Data.Access.Repositories;
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json.Serialization;
 using System.Security.Claims;
 using YogaManagement.Attributes;
 using YogaManagement.Common;
@@ -26,13 +27,18 @@ namespace YogaManagement.Infrastructure
 
             services.AddSingleton(dbSetting);
 
-            // Add Http Context Accessor
+            // Add Http Context Accessor (access HTTPContext information)
             services.AddHttpContextAccessor();
 
             // Add Controller With Views
             services.AddControllersWithViews(options =>
             {
                 options.Filters.Add(typeof(LoggingFilterService));
+            });
+
+            services.AddAntiforgery(options =>
+            {
+                options.HeaderName = webSetting.CsrkHeader;
             });
 
             // Authentication service
@@ -56,10 +62,19 @@ namespace YogaManagement.Infrastructure
                 options.ReturnUrlParameter = "returnUrl";
             });
 
+            // Add policy for authorization
             services.AddAuthorization(options =>
             {
                 options.AddPolicy(Const.ADMIN_POLICY, 
-                    policy => policy.RequireClaim(ClaimTypes.Role, "admin"));
+                    policy => policy.RequireClaim(ClaimTypes.Role, Const.ROLE_ADMIN));
+            });
+
+            // Add session services
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromMinutes(Const.SESSION_EXPIRED_TIME_MINUTE);
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
             });
 
             // Attributes services

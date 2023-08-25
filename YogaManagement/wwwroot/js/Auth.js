@@ -1,14 +1,14 @@
-﻿//# sourceURL=AuthHandler.js
+﻿//# sourceURL=Auth.js
 
 var AuthHandler = {
 
-    disableAutocomplete: function () {
-        $('#UserName').val('');
-        $('#Password').val('');
-    },
+    //disableAutocomplete: function () {
+    //    $('#UserName').val('');
+    //    $('#Password').val('');
+    //},
 
     init: function () {
-        AuthHandler.disableAutocomplete();
+        //AuthHandler.disableAutocomplete();
     }
 };
 

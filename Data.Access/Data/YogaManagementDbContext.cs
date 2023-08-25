@@ -22,6 +22,15 @@ namespace Data.Access.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            // Define table Class
+            modelBuilder.Entity<Class>().HasKey(m => m.ClassId);
+            modelBuilder.Entity<Class>(m =>
+            {
+                m.Property<string>("ClassName").HasMaxLength(50);
+                m.Property<string>("ClassType").HasMaxLength(10);
+                m.Property<string>("MonthPeriod").HasMaxLength(2);
+            });
+
             // Seed Data
             var salt = EncryptionHelper.CreateSalt();
             modelBuilder.Entity<User>()

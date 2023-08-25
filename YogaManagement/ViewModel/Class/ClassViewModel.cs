@@ -1,10 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Data.Models;
 
-namespace Data.Models
+namespace YogaManagement.ViewModel.Class
 {
-    public class Class : BaseEntity
+    public class ClassViewModel : BaseViewModel
     {
-        public Guid ClassId { get; set; }
         public string ClassName { get; set; }
         public string ClassType { get; set; }
         public string MonthPeriod { get; set; }

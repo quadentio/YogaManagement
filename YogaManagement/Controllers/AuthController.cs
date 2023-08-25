@@ -1,13 +1,11 @@
 ﻿using FluentValidation;
 using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using YogaManagement.Attributes;
 using YogaManagement.Common;
 using YogaManagement.Services;
 using YogaManagement.Validator;
-using YogaManagement.ViewModel;
 using YogaManagement.ViewModel.Auth;
 
 namespace YogaManagement.Controllers
@@ -44,8 +42,8 @@ namespace YogaManagement.Controllers
             if (result != null && !result.IsValid)
             {
                 result.AddToModelState(ModelState);
-                login.Errors = new List<ErrorViewModel>();
-                result.AddToErrorViewModel(login);
+                //login.Errors = new List<ErrorViewModel>();
+                //result.AddToErrorViewModel(login);
                 return View(login);
             }
 
@@ -79,6 +77,7 @@ namespace YogaManagement.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Register(RegisterViewModel register)
         {
             // Validate register information
@@ -102,20 +101,31 @@ namespace YogaManagement.Controllers
             }
 
             // Save session information
+            // Good practice??
+            HttpContext.Session.SetString(Const.SESSION_REGISTER, "True");
 
-            return RedirectToAction("RegisterSuccess");
+            return RedirectToAction("RegisterEnd");
         }
 
-        //[HttpGet]
-        //public IActionResult RegisterSuccess()
-        //{
-        //    // Check session information before loading page
-        //}
+        [HttpGet]
+        public IActionResult RegisterEnd()
+        {
+            // Check session information before loading page
+            var isRegisterdUser = HttpContext.Session.GetString(Const.SESSION_REGISTER);
+            if (isRegisterdUser == "True")
+            {
+                HttpContext.Session.Remove(Const.SESSION_REGISTER);
+                return View();
+            }
+
+            return RedirectToAction("Index");
+        }
 
         [HttpPost]
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync(Const.COOKIE_SCHEME);
+
             // Remove cookie authentication
             return RedirectToAction("Index");
         }

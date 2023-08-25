@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Data.Access.Migrations
 {
     [DbContext(typeof(YogaManagementDbContext))]
-    [Migration("20230824063348_Init")]
+    [Migration("20230825083655_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -33,17 +33,21 @@ namespace Data.Access.Migrations
 
                     b.Property<string>("ClassName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
-                    b.Property<int>("ClassType")
-                        .HasColumnType("int");
+                    b.Property<string>("ClassType")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("MonthPeriod")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(2)
+                        .HasColumnType("nvarchar(2)");
 
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("datetime2");
@@ -210,12 +214,12 @@ namespace Data.Access.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = new Guid("a083e4a3-c431-46f4-aeea-8e17de1b9d42"),
-                            CreatedAt = new DateTime(2023, 8, 24, 13, 33, 48, 717, DateTimeKind.Local).AddTicks(7449),
-                            Password = "/f0EtMOiZCPOz9Z8bx5D4A6oIw0bVkYvFJRv7UX78Zs=",
+                            UserId = new Guid("540d2f19-e7c5-4f0a-9751-89bd907d0e9b"),
+                            CreatedAt = new DateTime(2023, 8, 25, 15, 36, 55, 404, DateTimeKind.Local).AddTicks(4213),
+                            Password = "Q9x3xqmKpvjOvGwsVINufXAIt0L7BwjEdKyLl1bDr3g=",
                             Role = "admin",
-                            Salt = "5bpd4NdFy50++OALw+2kJA==",
-                            UpdatedAt = new DateTime(2023, 8, 24, 13, 33, 48, 717, DateTimeKind.Local).AddTicks(7464),
+                            Salt = "wElIm4GIeCiLRGtrLLMfXA==",
+                            UpdatedAt = new DateTime(2023, 8, 25, 15, 36, 55, 404, DateTimeKind.Local).AddTicks(4223),
                             UserName = "admin"
                         });
                 });

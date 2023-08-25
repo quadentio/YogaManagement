@@ -48,6 +48,11 @@ namespace YogaManagement.Services
             return identity;
         }
 
+        /// <summary>
+        /// Verify login information
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
         public User VerifyUserLoginInformation(UserViewModel user)
         {
             var verifyingUser = _unitOfWork.UserRepository.GetFirstOrDefault(u =>
@@ -93,6 +98,8 @@ namespace YogaManagement.Services
         {
             // Map RegisterUserViewModel to User
             User entity = _mapper.Map<User>(user);
+            entity.UserId = Guid.NewGuid();
+            entity.Role = Const.ROLE_USER;
             entity.Salt = EncryptionHelper.CreateSalt();
             entity.Password = EncryptionHelper.HashPassword(entity.Password, entity.Salt);
             entity.CreatedAt = DateTime.Now;

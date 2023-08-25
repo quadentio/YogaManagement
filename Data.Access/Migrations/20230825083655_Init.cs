@@ -16,9 +16,9 @@ namespace Data.Access.Migrations
                 columns: table => new
                 {
                     ClassId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    ClassName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ClassType = table.Column<int>(type: "int", nullable: false),
-                    MonthPeriod = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ClassName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    ClassType = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
+                    MonthPeriod = table.Column<string>(type: "nvarchar(2)", maxLength: 2, nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
@@ -122,7 +122,7 @@ namespace Data.Access.Migrations
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "UserId", "CreatedAt", "DeletedAt", "Password", "Role", "Salt", "UpdatedAt", "UserName" },
-                values: new object[] { new Guid("a083e4a3-c431-46f4-aeea-8e17de1b9d42"), new DateTime(2023, 8, 24, 13, 33, 48, 717, DateTimeKind.Local).AddTicks(7449), null, "/f0EtMOiZCPOz9Z8bx5D4A6oIw0bVkYvFJRv7UX78Zs=", "admin", "5bpd4NdFy50++OALw+2kJA==", new DateTime(2023, 8, 24, 13, 33, 48, 717, DateTimeKind.Local).AddTicks(7464), "admin" });
+                values: new object[] { new Guid("540d2f19-e7c5-4f0a-9751-89bd907d0e9b"), new DateTime(2023, 8, 25, 15, 36, 55, 404, DateTimeKind.Local).AddTicks(4213), null, "Q9x3xqmKpvjOvGwsVINufXAIt0L7BwjEdKyLl1bDr3g=", "admin", "wElIm4GIeCiLRGtrLLMfXA==", new DateTime(2023, 8, 25, 15, 36, 55, 404, DateTimeKind.Local).AddTicks(4223), "admin" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Courses_ClassId",

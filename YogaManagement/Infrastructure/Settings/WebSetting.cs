@@ -8,5 +8,6 @@
         public string LoginPath { get; set; } = string.Empty;
         public string LogoutPath { get; set; } = string.Empty;
         public string DeniedPath { get; set; } = string.Empty;
+        public string CsrkHeader { get; set; } = "X-CSRF-TOKEN";
     }
 }

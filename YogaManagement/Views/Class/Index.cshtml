@@ -1,32 +1,51 @@
-﻿<div class="text-center">
-    <h1 class="display-4">CLASS</h1>
-    <p>This is class Controller</p>
-</div>
+﻿@section RenderBodyStyles{
+    <link rel="stylesheet" href="~/css/class.css" />
+}
 
+@section Scripts{
+    <script src="./js/Class.js"></script>
+}
 
-<div class="container">
-    <div class="row">
-        <div class="col-3">
-            <button id="openPopupButton" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">
-                Open Popup
-            </button>
+<section class="vh-100 rounded-3 main-background">
+    <div class="card shadow border-0 mt-4 glass-container">
+        <div class="card-header bg-gradient m-lg-0 py-3">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <h2 class="py-2 text-warning">Class Management</h2>
+                </div>
+            </div>
+        </div>
+        <div class="card-body p-4">
+            <div class="row pb-3">
+                <div class="col-6">
+                </div>
+                <div class="col-6 text-end">
+                    <a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#RegisterClassPopup">
+                        <i class="bi bi-patch-plus"></i> Create new class
+                    </a>
+                </div>
+            </div>
+
+            <table id="tbl-class" class="table table-bordered table-striped">
+            </table>
         </div>
     </div>
-</div>
+</section>
 
-<div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="RegisterClassPopup" tabindex="-1" aria-labelledby="AddClass" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Popup Title</h5>
+                <h5 class="modal-title" id="AddClass">Add Class</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <!-- Add your popup content here -->
+                <!-- Partial view goes here -->
                 <p>This is the content of the popup.</p>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Ok</button>
+            <div class="modal-footer d-flex justify-content-center">
+                <button id="btnConfirm" type="button" class="btn btn-primary">Confirm</button>
+                <button id="btnCancel" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
             </div>
         </div>
     </div>
