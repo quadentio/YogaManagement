@@ -54,6 +54,10 @@ button.accept-policy {
     line-height: 60px;
 }
 
+.text-footer{
+    font-family: 'Javanese Text';
+}
+
 .main-layout-background {
     background-color: #73a580;
 }

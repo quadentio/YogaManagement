@@ -7,5 +7,10 @@
 }
 
 .main-background {
-    background: radial-gradient(circle at 90% 80%, rgb(0, 93, 133) 0%, rgb(0, 181, 149) 90%);
+    /*background: radial-gradient(circle at 90% 80%, rgb(0, 93, 133) 0%, rgb(0, 181, 149) 90%);*/
+    background: #E4DED4;
+}
+
+.text-header {
+    font-family: Cooper;
 }

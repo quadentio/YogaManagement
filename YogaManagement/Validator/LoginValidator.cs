@@ -9,9 +9,7 @@ namespace YogaManagement.Validator
         public LoginValidator()
         {
             RuleFor(x => x.UserName)
-                .NotEmpty().WithMessage("Username must not be empty")
-                .GreaterThan("H").WithMessage("Have to greater than H")
-                .GreaterThan("K").WithMessage("Have to greater than K");
+                .NotEmpty().WithMessage("Username must not be empty");
             RuleFor(x => x.Password)
                 .NotEmpty()
                 .WithMessage("Password must not be empty")

@@ -6,6 +6,11 @@ namespace YogaManagement.Validator
 {
     public static class ValidationResultExtension
     {
+        /// <summary>
+        /// Normal MVC validation
+        /// </summary>
+        /// <param name="result"></param>
+        /// <param name="modelState"></param>
         public static void AddToModelState(this ValidationResult result, ModelStateDictionary modelState)
         {
             // Clear model binding function in asp.net core
@@ -20,6 +25,11 @@ namespace YogaManagement.Validator
             }
         }
 
+        /// <summary>
+        /// AJAX application validation
+        /// </summary>
+        /// <param name="result"></param>
+        /// <param name="model"></param>
         public static void AddToErrorViewModel(this ValidationResult result, BaseViewModel model)
         {
             if (!result.IsValid)

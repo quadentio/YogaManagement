@@ -8,7 +8,7 @@ namespace YogaManagement.Mapper
     {
         public UserProfile()
         {
-            // RegisterUserVM => User
+            // UserViewModel => User
             CreateMap<UserViewModel, User>()
                 .ForMember(dest => dest.UserName, options => options.MapFrom(src => src.UserName))
                 .ForMember(dest => dest.Password, options => options.MapFrom(src => src.Password));
