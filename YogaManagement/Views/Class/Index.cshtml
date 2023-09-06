@@ -6,6 +6,10 @@
     <script src="./js/Class.js"></script>
 }
 
+<script type="text/javascript">
+    var registerClassDataUrl = '@Url.Action("RegisterClassData", "Class")';
+</script>
+
 <section class="vh-100 rounded-3 main-background">
     <div class="card shadow border-0 mt-4 glass-container">
         <div class="card-header bg-gradient m-lg-0 py-3">
@@ -16,12 +20,7 @@
             </div>
         </div>
         <div class="card-body p-4">
-            <div class="row pb-3">
-                <div class="col-6">
-                    <a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#RegisterClassPopup">
-                        <i class="bi bi-patch-plus"></i> Create new class
-                    </a>
-                </div>
+            <div class="row justify-content-end pb-3">
                 <div class="col-6 text-end">
                     <a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#RegisterClassPopup">
                         <i class="bi bi-patch-plus"></i> Create new class
@@ -35,21 +34,4 @@
     </div>
 </section>
 
-<div class="modal fade" id="RegisterClassPopup" tabindex="-1" aria-labelledby="AddClass" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="AddClass">Add Class</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <!-- Partial view goes here -->
-                <p>This is the content of the popup.</p>
-            </div>
-            <div class="modal-footer d-flex justify-content-center">
-                <button id="btnConfirm" type="button" class="btn btn-primary">Confirm</button>
-                <button id="btnCancel" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-            </div>
-        </div>
-    </div>
-</div>
+<partial name="_ClassInsertPopPartial" />

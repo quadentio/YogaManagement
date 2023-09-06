@@ -51,6 +51,12 @@
                 pattern: "/Class",
                 defaults: new { controller = "Class", action = "Index"}
             );
+
+            route.MapControllerRoute(
+                name: "Class",
+                pattern: "/Class/Register",
+                defaults: new { controller = "Class", action = "RegisterClassData" }
+            );
         }
     }
 }

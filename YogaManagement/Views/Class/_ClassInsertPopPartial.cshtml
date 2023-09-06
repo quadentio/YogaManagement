@@ -1,21 +1,42 @@
-﻿<div class="container-fluid">
-    <form class="row g-3">
-        <div class="col-lg-6">
-            <label class="form-label">ClassName</label>
-            <input
-                type="text"
-                placeholder="ClassName"
-                   name="ClassName"
-                id="ClassName"
-                class="form-control" />
+﻿<div class="modal fade" id="RegisterClassPopup" tabindex="-1" aria-labelledby="AddClass" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="AddClass">Add Class</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <div id="errorsValidation" class="alert alert-warning" hidden>
+                    </div>
+                    <div class="row g-3">
+                        <div class="col-lg-12">
+                            <label class="form-label-sm">ClassName</label>
+                            <input type="text"
+                                   class="form-control"
+                                   placeholder="name of class"
+                                   name="ClassName"
+                                   id="ClassName" />
+                        </div>
+                        <div class="col-md-12 col-lg-6">
+                            <label class="form-label-sm mb-2">ClassType</label>
+                            <select id="ClassType"
+                                    class="form-select">
+                            </select>
+                        </div>
+                        <div class="col-md-12 col-lg-6">
+                            <label class="form-label-sm mb-2">Months</label>
+                            <select id="MonthPeriod"
+                                    class="form-select">
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer d-flex justify-content-center">
+                <button id="btnConfirm" type="button" class="btn btn-primary">Register</button>
+                <button id="btnCancel" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+            </div>
         </div>
-        <div class="col-lg-6">
-            <label class="form-label">ClassType</label>
-            <select id="ClassType" class="form-select">
-                <option value="">Please select type</option>
-                <option value="Five">Five</option>
-                <option value="Five">Five</option>
-                <option value="Five">Five</option>
-            </select>
-    </form>
+    </div>
 </div>

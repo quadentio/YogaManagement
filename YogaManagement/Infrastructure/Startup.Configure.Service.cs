@@ -2,7 +2,6 @@
 using Data.Access.Repositories;
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json.Serialization;
 using System.Security.Claims;
 using YogaManagement.Attributes;
 using YogaManagement.Common;
@@ -10,6 +9,7 @@ using YogaManagement.Infrastructure.Settings;
 using YogaManagement.Services;
 using YogaManagement.Validator;
 using YogaManagement.ViewModel.Auth;
+using YogaManagement.ViewModel.Class;
 
 namespace YogaManagement.Infrastructure
 {
@@ -109,6 +109,7 @@ namespace YogaManagement.Infrastructure
             //services.AddScoped<IValidator<Shift>, ShiftValidator>();
             services.AddScoped<IValidator<LoginViewModel>, LoginValidator>();
             services.AddScoped<IValidator<RegisterViewModel>, RegisterValidator>();
+            services.AddScoped<IValidator<ClassViewModel>, ClassValidator>();
         }
 
         public static void ConfigureAttributeServices(this IServiceCollection services)
